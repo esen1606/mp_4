@@ -14,10 +14,10 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
     lookup_field = 'slug'
 
-    # def get_permissions(self):
-    #     if self.action in ['update', 'partial_update', 'create', 'destroy']:
-    #         return (permissions.IsAdminUser(),)
-    #     return (permissions.AllowAny(),)
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'create', 'destroy']:
+            return (permissions.IsAdminUser(),)
+        return (permissions.AllowAny(),)
 
 
 class CategoryAPIView(APIView):
