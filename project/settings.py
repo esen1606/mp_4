@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'albums',
     'account',
     'like',
+    'rating',
+    'comments',
 
 ]
 

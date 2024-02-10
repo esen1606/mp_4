@@ -20,7 +20,6 @@ from like.serializers import LikeSerializer
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -138,7 +137,6 @@ class MusicOutputView(viewsets.ViewSet):
         serializer = LikeSerializer(instance=likes, many=True)
         logging.debug('Это сообщение отладочного уровня')
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 class MusicDetailView(DestroyAPIView):
     queryset = Music.objects.all()

@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/album/',include('albums.urls')),
     path('api/music/',include('music.urls')),
     path('api/category/',include('category.urls')),
+    path('api/comment/', include('comments.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
