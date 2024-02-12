@@ -1,0 +1,22 @@
+<script>
+    var wsProtocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+    var chatSocket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/");
+
+    chatSocket.onmessage = function(e) {
+        var messageData = JSON.parse(e.data);
+        // Вставьте логику для добавления сообщения в блок чата
+    };
+
+    function sendMessage() {
+        var messageInput = document.getElementById("message-input");
+        var message = messageInput.value;
+        if (message.trim() === "") {
+            alert("Пожалуйста, введите сообщение.");
+            return;
+        }
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = "";
+    }
+</script>

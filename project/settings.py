@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'drf_api_logger',
+    'channels',
 
     'music',
     'category',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'like',
     'rating',
     'comments',
+    'chat',
 
 ]
 
@@ -179,5 +181,11 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization',
             'in': 'header',
         },
+    },
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer', 
     },
 }

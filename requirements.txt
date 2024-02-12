@@ -8,8 +8,8 @@ attrs==23.2.0
 billiard==4.2.0
 bleach==6.1.0
 cachalot==1.5.0
-celery==5.3.6
 certifi==2023.11.17
+channels==4.0.0
 charset-normalizer==3.3.2
 click==8.1.7
 click-didyoumean==0.3.0
