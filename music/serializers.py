@@ -7,7 +7,7 @@ from like.serializers import LikeSerializer
 class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
-        fields = ['id', 'name_music', 'audio_file', 'image_music', 'author', 'category', 'in_albums']
+        fields = ['id', 'name_music', 'audio_file', 'image_music', 'author', 'category', 'in_albums', 'text_music']
 from rest_framework import serializers
 
 

@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_api_logger',
     'channels',
+    'corsheaders',
+    'django_celery_results',
 
     'music',
     'category',
@@ -61,14 +63,17 @@ INSTALLED_APPS = [
 
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -189,3 +194,47 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels.layers.InMemoryChannelLayer', 
     },
 }
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+
+#Celery settings
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+#Celery result
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_CACHE_BACKEND_OPTIONS = {
+    'max_entries': 1000,
+    'cull_frequency': 3,
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "main_format": {
+            "format": "[{asctime}-{levelname}] {module}-{filename}: {message}",
+            "style": "{",
+        }
+    },
+
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler',
+                    'formatter': 'main_format'},
+    },
+
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'WARNING'
+        },
+    }
+}
+
+CORS_ALLOW_ALL_ORIGINS = True

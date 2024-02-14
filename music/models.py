@@ -11,6 +11,7 @@ class Music(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='music')
     in_albums = models.ForeignKey(Albums, related_name='music', on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add = True)
+    music_text = models.TextField(default='text_music')
 
     def __str__(self):
         return self.name_music

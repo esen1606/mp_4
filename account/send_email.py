@@ -22,7 +22,7 @@ def send_confirmation_email(email, code):
 
 
 def send_confirmation_password(email, code):
-    activation_url = f'http://127.0.0.1:8000/api/account/reset-password/confirm/?u={code}'
+    activation_url = f'http://127.0.0.1:8000/api/account/reset-password/confirm/?user_id={code}'
     context = {'activation_url': activation_url}
     subject = 'Подтвердите изменение пароля '
     html_message = render_to_string('account/new_password.html', context)

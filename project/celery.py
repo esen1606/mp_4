@@ -1,11 +1,11 @@
-from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
+from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mp3_club.settings')
 
-celery_app = Celery('mp3_club')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
-celery_app.config_from_object('django.conf:settings', namespace='CELERY')
-
-celery_app.autodiscover_tasks()
+app = Celery('project')
+app.config_from_object('django.conf:settings', namespace='CELERY')
+app.conf.broker_url = settings.CELERY_BROKER_URL
+app.autodiscover_tasks()

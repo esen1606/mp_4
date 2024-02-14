@@ -19,11 +19,12 @@ from like.models import Like
 from like.serializers import LikeSerializer
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 import logging
 logger = logging.getLogger(__name__)
 
-#For Post in PostMan
+@method_decorator(cache_page(60*10), name='dispatch')
 class MusicView(APIView):
     queryset = Music.objects.all()
     serializer_class = MusicSerializer
