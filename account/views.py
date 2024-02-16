@@ -16,8 +16,10 @@ User = get_user_model()
 from django.shortcuts import get_list_or_404
 from project.tasks import send_confirmation_email_task, send_confirmation_password_task
 from .send_email import send_confirmation_email, send_confirmation_password
+from drf_yasg.utils import swagger_auto_schema
 
 class RegistrationView(APIView):
+    @swagger_auto_schema(request_body=RegistrationSerializer)
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -97,6 +99,7 @@ class ResetPasswordView(APIView):
     def get(self, request):
         return Response({'message': 'Please provide an email to reset the password'})
 
+    @swagger_auto_schema(request_body=ConfirmPasswordSerializer)
     def post(self, request):
         serializer = ConfirmPasswordSerializer(data=request.data)
         if serializer.is_valid():
@@ -112,6 +115,7 @@ class ResetPasswordView(APIView):
 
 
 class ResetPasswordConfirmView(APIView):
+    @swagger_auto_schema(request_body=ResetPasswordSerializer)
     def post(self, request):
         code = request.GET.get('u')
         user = get_object_or_404(User, activation_code=code)

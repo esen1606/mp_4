@@ -20,19 +20,19 @@ class CategoryViewSet(ModelViewSet):
         return (permissions.AllowAny(),)
 
 
-class CategoryAPIView(APIView):
-    def get(self, request, slug=None):
-        if slug:
-            category = get_object_or_404(Category, slug=slug)
-            serializer = CategorySerializer(category)
-        else:
-            categories = Category.objects.all()
-            serializer = CategorySerializer(categories, many=True)
-        return Response(serializer.data)
+# class CategoryAPIView(APIView):
+#     def get(self, request, slug=None):
+#         if slug:
+#             category = get_object_or_404(Category, slug=slug)
+#             serializer = CategorySerializer(category)
+#         else:
+#             categories = Category.objects.all()
+#             serializer = CategorySerializer(categories, many=True)
+#         return Response(serializer.data)
 
-    def post(self, request):
-        serializer = CategorySerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+#     def post(self, request):
+#         serializer = CategorySerializer(data=request.data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data, status=201)
+#         return Response(serializer.errors, status=400)
